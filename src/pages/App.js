@@ -11,14 +11,17 @@ class App extends Component
 		this.state = {
 			loading: true,
 			search: "",
-			blogs: []
+			blogs: [],
+			blogFiltered: []
 		}
 	}
 
 	handleTypeSearch = event => {
 		const blogFiltered = this.state.blogs.filter(
-			blog => blog.title.toLowerCase().indexOf(event.target.value)
+			blog => blog.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1
 		)
+
+		console.log(blogFiltered)
 
 		this.setState({ blogFiltered })
 	}
@@ -27,18 +30,12 @@ class App extends Component
 		return fetch(API_DATA)
 		.then(res => res.json())
 		.then(res => this.setState({
-			blogs: res,
-			blogFiltered: res,
-			loading: false
+			blogs: res, blogFiltered: res, loading: false
 		}) )
 	}
 
 	render() {
-		if (this.state.loading) {
-			return (
-				<h1>Loading</h1>
-			)
-		}
+		if (this.state.loading) return (<h1>Loading</h1>)
 
 		return (
 			<div style={styles.container}>
@@ -49,7 +46,7 @@ class App extends Component
 					/>
 
 					{
-						this.state.blogs.map((blog, index) => (
+						this.state.blogFiltered.map((blog, index) => (
 							<BlogList
 							key={index}
 							author={blog.author}

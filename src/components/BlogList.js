@@ -2,12 +2,13 @@ import React from 'react'
 
 
 
-const BlogList = props => {
+const BlogList = ({ title, author, date, content }) => {
 	return (
 		<div>
-			<h1>{props.title}</h1>
-			<span>{props.author} - {props.date}</span>
-			<h1>{props.content}</h1>
+			
+			<h1>{title}</h1>
+			<span>{author} - {date}</span>
+			<h1>{content}</h1>
 		</div>
 
 	)
